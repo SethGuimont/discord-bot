@@ -39,3 +39,4 @@ async def pick(ctx):
 
 
 bot.run(TOKEN)
+# test
