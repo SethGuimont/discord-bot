@@ -7,7 +7,6 @@ import random
 
 from constants import *
 
-
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
 
@@ -21,17 +20,14 @@ async def on_ready():
 
 
 @bot.event
-async def on_message_join(member):
+async def on_member_join(member):
     channel = bot.get_channel(1109948451577401347)
-    embed = discord.Embed(title=f"Welcome {member.name}",
-                          description=f"Thanks for joining {member.guild.name}!")  # F-Strings!
-    embed.set_thumbnail(url=member.avatar_url)  # Set the embed's thumbnail to the member's avatar image!
-    await channel.send(embed=embed)
+    await channel.send(f"Welcome to {member.guild.name}!")
 
 
 @bot.event
 async def on_message(message):
-    if message.channel.name == 'general':
+    if message.channel.id == 1109948451577401347:
         for i in BANNED_WORDS:  # Go through the list of bad words;
             if i in message.content:
                 await message.delete()
@@ -54,6 +50,22 @@ async def ping(ctx):
     await ctx.channel.send("pong")
 
 
+# Retrieve information on a member, will return error if memeber does not exists.
+# This will go into it's own class later on
+@bot.command()
+async def info(ctx, *, member: discord.Member):
+    """Tells you some info about the member."""
+    msg = f'{member} joined on {member.joined_at} and has {len(member.roles)} roles.'
+    await ctx.send(msg)
+
+
+@info.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send('I could not find that member...')
+
+
+# Begining of methods that are not part of Discords commands, but one's wrote by dev
 @bot.command(pass_context=True)
 async def pick(ctx):
     play_this = random.choice(MULTIPLAYER_MODES)
