@@ -50,8 +50,8 @@ async def ping(ctx):
     await ctx.channel.send("pong")
 
 
-# Retrieve information on a member, will return error if memeber does not exists.
-# This will go into it's own class later on
+# Retrieve information on a member, will return error if member does not exist.
+# This will go into its own class later on
 @bot.command()
 async def info(ctx, *, member: discord.Member):
     """Tells you some info about the member."""
@@ -65,7 +65,7 @@ async def info_error(ctx, error):
         await ctx.send('I could not find that member...')
 
 
-# Begining of methods that are not part of Discords commands, but one's wrote by dev
+# Beginning of methods that are not part of Discords commands, but one's wrote by dev
 @bot.command(pass_context=True)
 async def pick(ctx):
     play_this = random.choice(MULTIPLAYER_MODES)
