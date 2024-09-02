@@ -2,8 +2,9 @@
 import os
 import discord
 from dotenv import load_dotenv
-from discord.ext import commands
+from discord.ext import tasks, commands
 import random
+import datetime
 
 from constants import *
 
@@ -12,7 +13,8 @@ TOKEN = os.getenv('TOKEN')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', intents=intents)
-
+utc = datetime.timezone.utc
+time = datetime.time(hour=23, minute=50, tzinfo=utc)
 
 @bot.event
 async def on_ready():
@@ -71,6 +73,9 @@ async def pick(ctx):
     play_this = random.choice(MULTIPLAYER_MODES)
     await ctx.channel.send(play_this)
 
+@tasks.loop(time=time)
+async def daily_message(ctx):
+    await ctx.channel.send('What a great day')
 
 bot.run(TOKEN)
 # test
