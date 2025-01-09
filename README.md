@@ -15,7 +15,7 @@ I will also use Flask to make the bot persistent.
 For now, standard bot features as well as some customs methods.
 
 ## Contact
-I am on LinkedIn and my email is sethguimont@outlook.com.
+I am on LinkedIn and my email is sethguimont@proton.me.
 
 ## Acknowledgements
 None so far
